@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Brand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 15px 20px;
+            gap: 40px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #1a1a1a;
+        }
+
+        .search-container {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+            margin: 0 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+            background-color: #f8f8f8;
+            box-sizing: border-box;
+        }
+
+        .icons {
+            display: flex;
+            gap: 15px;
+            margin-left: auto;
+        }
+
+        .icons svg {
+            width: 20px;
+            height: 20px;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .icons svg:hover {
+            color: #1a1a1a;
+        }
+
+        .hero-image-container {
+            width: 100%;
+            height: 400px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .main-content {
+            display: flex;
+            padding: 30px 0;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .filter-section {
+            margin-bottom: 25px;
+        }
+
+        .filter-section .search-filter {
+            margin-bottom: 15px;
+        }
+
+        .filter-section .search-filter input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .filter-options input[type="checkbox"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .filter-options input[type="checkbox"]:checked {
+            background-color: #1a1a1a;
+            border-color: #1a1a1a;
+        }
+
+        .filter-options input[type="checkbox"]:checked::after {
+            content: '✓';
+            color: #fff;
+            font-size: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .size-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .size-grid button {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .size-grid button:hover,
+        .size-grid button.active {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .product-grid {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card .image-container {
+            width: 100%;
+            padding-top: 133.33%; /* 3:4 aspect ratio */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .product-card-heart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .product-card-heart svg {
+            width: 16px;
+            height: 16px;
+            color: #555;
+        }
+
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+
+        .product-category {
+            font-size: 13px;
+            color: #555;
+            margin: 0 0 10px 0;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .product-price .original {
+            color: #555;
+            text-decoration: line-through;
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        .product-price .discount {
+            color: #ff6f61;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+            .nav-menu {
+                display: none; /* Hide for mobile */
+            }
+            .search-container {
+                order: 1;
+                margin: 15px 0 0 0;
+            }
+            .icons {
+                display: none;
+            }
+            .main-content {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px 0;
+            }
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-content container">
+            <a href="#" class="logo">FusionFabrik</a>
+            <nav class="nav-menu">
+                <a href="#">MEN</a>
+                <a href="#">WOMEN</a>
+                <a href="#">SNEAKERS</a>
+            </nav>
+            <div class="search-container">
+                <input type="text" placeholder="What are you looking for?">
+            </div>
+            <div class="icons">
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-2a7 7 1 000-14 7 7 0 000 14zm-1-8a1 1 0 112 0v2a1 1 0 11-2 0v-2zm1-5a1 1 0 110 2 1 1 0 010-2z"/>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5 12a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/>
+                    <path d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-2a7 7 0 100-14 7 7 0 000 14z"/>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21a9 9 0 100-18 9 9 0 000 18zm0-2a7 7 0 100-14 7 7 0 000 14zm-4.5-3.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm9 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm-10-5h10a1 1 0 011 1v2a1 1 0 01-1 1h-10a1 1 0 01-1-1v-2a1 1 0 011-1zm-1 5a1 1 0 01-1-1v-2a1 1 0 011-1h10a1 1 0 011 1v2a1 1 0 01-1 1h-10z"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Image Container -->
+    <div class="hero-image-container">
+        <img src="hero.jpg" alt="Fashion Store Hero Image">
+    </div>
+
+    <main class="container main-content">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3>Gender</h3>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox"> Men
+                    </label>
+                    <label>
+                        <input type="checkbox"> Women
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Categories</h3>
+                <div class="filter-options">
+                    <div class="search-filter">
+                        <input type="text" placeholder="Search for Categories">
+                    </div>
+                    <label>
+                        <input type="checkbox"> T-Shirts
+                    </label>
+                    <label>
+                        <input type="checkbox"> Hoodies
+                    </label>
+                    <label>
+                        <input type="checkbox"> Jackets
+                    </label>
+                    <label>
+                        <input type="checkbox"> Shorts
+                    </label>
+                    <label>
+                        <input type="checkbox"> Jeans
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Size</h3>
+                <div class="search-filter">
+                    <input type="text" placeholder="Search for Size">
+                </div>
+                <div class="size-grid">
+                    <button>XXS</button>
+                    <button>XS</button>
+                    <button>S</button>
+                    <button>M</button>
+                    <button>L</button>
+                    <button>XL</button>
+                    <button>XXL</button>
+                    <button>XXXL</button>
+                </div>
+            </div>
+        </aside>
+
+        <section class="product-grid">
+            <div class="product-card">
+                <div class="image-container">
+    <a href="productdescription.html" target="_blank">
+        <img src="1.jpg" alt="Product Image">
+    </a>
+</div>
+<span class="product-card-badge">OVERSIZED FIT</span>
+
+                <div class="product-info">
+                    <h4 class="product-title">Classic Oversized Tee</h4>
+                    <p class="product-category">Men's T-Shirts</p>
+                    <div class="product-price">
+                        <span class="current-price">$25</span>
+                        <span class="original">$30</span>
+                        <span class="discount">17% OFF</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="2.jpg" alt="Product Image">
+                </div>
+                <span class="product-card-badge">SLIM FIT</span>
+               
+                <div class="product-info">
+                    <h4 class="product-title">Patterned Casual Shirt</h4>
+                    <p class="product-category">Men's Shirts</p>
+                    <div class="product-price">
+                        <span class="current-price">$45</span>
+                        <span class="original">$55</span>
+                        <span class="discount">18% OFF</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="3.jpg" alt="Product Image">
+                </div>
+                <span class="product-card-badge">HOODIE</span>
+                
+                <div class="product-info">
+                    <h4 class="product-title">Minimalist Black Hoodie</h4>
+                    <p class="product-category">Unisex Hoodies</p>
+                    <div class="product-price">
+                        <span class="current-price">$60</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="4.jpg" alt="Product Image">
+                </div>
+                <span class="product-card-badge">NEW ARRIVAL</span>
+               
+                
+                <div class="product-info">
+                    <h4 class="product-title">Slim Fit Denim Jeans</h4>
+                    <p class="product-category">Women's Jeans</p>
+                    <div class="product-price">
+                        <span class="current-price">$75</span>
+                        <span class="original">$90</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="5.jpg" alt="Product Image">
+                </div>
+                <span class="product-card-badge">SALE</span>
+                
+                <div class="product-info">
+                    <h4 class="product-title">Winter Puffer Jacket</h4>
+                    <p class="product-category">Unisex Jackets</p>
+                    <div class="product-price">
+                        <span class="current-price">$110</span>
+                        <span class="original">$150</span>
+                        <span class="discount">27% OFF</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="6.jpg" alt="Product Image">
+                </div>
+    
+                
+                <div class="product-info">
+                    <h4 class="product-title">Vintage Graphic Tee</h4>
+                    <p class="product-category">Men's T-Shirts</p>
+                    <div class="product-price">
+                        <span class="current-price">$35</span>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+</body>
+</html>

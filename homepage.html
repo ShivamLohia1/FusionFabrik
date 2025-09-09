@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fusion Fabrik</title>
+  <style>
+    /* -------------------- RESET -------------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #fff;
+      color: #111;
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* -------------------- NAVIGATION -------------------- */
+    nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    font-weight: bold;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+  }
+
+  .nav-links li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 15px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .btn.login {
+    border: 1px solid #333;
+    color: #333;
+  }
+
+  .btn.login:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  .btn.signup {
+    background: #333;
+    color: #fff;
+  }
+
+  .btn.signup:hover {
+    background: #555;
+  }
+
+    /* -------------------- HERO IMAGE -------------------- */
+    .hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-top: 80px; /* space for fixed nav */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+
+    /* -------------------- COLLECTIONS SECTION -------------------- */
+    .collections {
+      padding: 100px 60px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 60px;
+      font-weight: 600;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 600px;
+    }
+
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .category-card:hover { transform: translateY(-5px); }
+
+    .category-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+    }
+
+    .category-label {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      z-index: 2;
+    }
+
+    /* -------------------- SHOP BY FANDOM SECTION -------------------- */
+    .fandom-section {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .carousel-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .carousel-wrapper {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .carousel {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .fandom-card {
+      position: relative;
+      min-width: 400px;
+      height: 500px;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .fandom-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .fandom-image { width: 100%; height: 100%; object-fit: cover; }
+
+    .fandom-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+    }
+
+    .fandom-logo { position: absolute; bottom: 30px; left: 30px; z-index: 3; }
+
+    /* Logos */
+    .marvel-logo {
+      background: #ed1d24; color: white; font-weight: 900;
+      font-size: 24px; padding: 8px 16px;
+      border-radius: 4px; letter-spacing: 2px;
+    }
+
+    .dc-logo {
+      background: #0078f0; color: white; font-weight: 900;
+      font-size: 32px; width: 60px; height: 60px;
+      border-radius: 50%; display: flex;
+      align-items: center; justify-content: center;
+    }
+
+    .demon-slayer-logo {
+      background: white; border-radius: 50%;
+      width: 80px; height: 80px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+
+    .demon-slayer-text {
+      color: #2c3e50; font-weight: 900;
+      font-size: 10px; text-align: center; line-height: 1.1;
+    }
+
+    .demon-slayer-circle {
+      position: absolute; top: -2px; right: -2px;
+      width: 30px; height: 30px; background: #dc3545;
+      border-radius: 50%; border: 3px solid white;
+    }
+
+    /* Arrows */
+    .nav-arrow {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: white; border: 2px solid #e9ecef;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s ease;
+      font-size: 18px; color: #6c757d;
+    }
+    .nav-arrow:hover {
+      background: #2c3e50; color: white;
+      border-color: #2c3e50; transform: scale(1.1);
+    }
+    .nav-arrow.prev { order: -1; }
+    .nav-arrow.next { order: 1; }
+
+    /* Background themes */
+    .marvel-card { background: linear-gradient(135deg, #1a1a1a 0%, #3d3d3d 100%); }
+    .dc-card { background: linear-gradient(135deg, #0078f0 0%, #005cbf 100%); }
+    .demon-slayer-card { background: linear-gradient(135deg, #8b4513 0%, #d4a574 100%); }
+
+    /* -------------------- ABOUT SECTION -------------------- */
+    .about {
+      padding: 100px 60px;
+      background: #f9f9f9;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 50%;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-left: 200px;
+    }
+
+    .about-text h2 { font-size: 2rem; margin-bottom: 20px; }
+    .about-text p { font-size: 1.1rem; color: #444; margin-bottom: 20px; }
+
+    /* -------------------- FOOTER -------------------- */
+    footer {
+      background: #111; color: #eee; padding: 50px 20px 20px;
+    }
+
+    .footer-container {
+      max-width: 1200px; margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+    }
+
+    .footer h3 {
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #fff;
+      border-bottom: 2px solid #444;
+      padding-bottom: 10px;
+    }
+
+    .footer p, .footer a {
+      font-size: 14px; color: #bbb;
+      line-height: 1.8;
+    }
+    .footer a:hover { color: #fff; }
+
+    .socials a { margin-right: 10px; font-size: 18px; color: #bbb; }
+    .socials a:hover { color: #fff; }
+
+    .contact-info p { margin-bottom: 8px; }
+
+    .copyright {
+      text-align: center; margin-top: 40px;
+      font-size: 13px; color: #777;
+      border-top: 1px solid #333; padding-top: 15px;
+    }
+
+    /* -------------------- RESPONSIVE -------------------- */
+    @media (max-width: 1024px) {
+      .fandom-card { min-width: 350px; height: 450px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px; }
+      .about { grid-template-columns: 1fr; }
+      .hero-image { margin-top: 70px; }
+      .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 200px);
+        height: auto;
+      }
+      .category-label { font-size: 16px; bottom: 15px; left: 15px; }
+      .fandom-card { min-width: 280px; height: 400px; }
+      .nav-arrow { width: 40px; height: 40px; font-size: 16px; }
+      .fandom-logo { bottom: 20px; left: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 20px 10px; }
+      .grid-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(8, 180px);
+        gap: 10px;
+      }
+      .carousel-container { gap: 10px; }
+      .carousel { gap: 15px; }
+      .fandom-card { min-width: 240px; height: 350px; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- -------------------- NAVIGATION -------------------- -->
+  <nav>
+  <div class="logo">FusionFabrik</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="auth-buttons">
+    <a href="signin.html" class="btn login">Login</a>
+    <a href="signup.html" class="btn signup">Signup</a>
+  </div>
+</nav>
+
+  <!-- -------------------- HERO IMAGE -------------------- -->
+  <img src="Untitled83_20250907222923.png" alt="Fusion Fabrik Hero" class="hero-image">
+
+  <!-- -------------------- COLLECTIONS -------------------- -->
+  <section class="collections" id="collections">
+    <h2 class="section-title">Our Collections</h2>
+    <div class="grid-container">
+      <!-- category cards -->
+     <a href="tshirtsection.html" class="category-link">
+  <div class="category-card tshirts">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop" alt="T-Shirts" class="category-image">
+    <div class="overlay"></div>
+    <div class="category-label">T-SHIRTS</div>
+  </div>
+</a>
+      <div class="category-card bottoms">
+        <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=300&fit=crop" alt="All Bottoms" class="category-image">
+        <div class="overlay"></div><div class="category-label">ALL BOTTOMS</div>
+      </div>
+      <div class="category-card shirts">
+        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=300&fit=crop" alt="Shirts" class="category-image">
+        <div class="overlay"></div><div class="category-label">SHIRTS</div>
+      </div>
+      <div class="category-card polos">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=300&fit=crop" alt="Polos" class="category-image">
+        <div class="overlay"></div><div class="category-label">POLOS</div>
+      </div>
+      <div class="category-card shorts">
+        <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=300&fit=crop" alt="Shorts" class="category-image">
+        <div class="overlay"></div><div class="category-label">SHORTS</div>
+      </div>
+      <div class="category-card shoes">
+        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop" alt="Shoes" class="category-image">
+        <div class="overlay"></div><div class="category-label">SHOES</div>
+      </div>
+      <div class="category-card swimwear">
+        <img src="https://thfvnext.bing.com/th/id/OIP.9P0ou2SXzMW0yKX9UoW5xgHaJ3?w=128&h=180&c=7&r=0&o=5&cb=thfvnext&dpr=1.1&pid=1.7" alt="Swimwear" class="category-image">
+        <div class="overlay"></div><div class="category-label">HOODIES</div>
+      </div>
+      <div class="category-card accessories">
+        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop" alt="Accessories" class="category-image">
+        <div class="overlay"></div><div class="category-label">ACCESSORIES</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -------------------- SHOP BY FANDOM -------------------- -->
+  <div class="fandom-section">
+    <h2 class="section-title">Shop by Fandom</h2>
+    <div class="carousel-container">
+      <div class="nav-arrow prev">‹</div>
+      <div class="carousel-wrapper">
+        <div class="carousel">
+          <!-- marvel -->
+          <div class="fandom-card marvel-card">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.YKzPdfaAongPw5C6w77A5AHaNK?r=0&cb=thfvnext&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Marvel Collection" class="fandom-image">
+            <div class="fandom-overlay"></div>
+            <div class="fandom-logo"><div class="marvel-logo">MARVEL</div></div>
+          </div>
+          <!-- dc -->
+          <div class="fandom-card dc-card">
+            <img src="https://thfvnext.bing.com/th/id/OIP.4GSMSLO41PiLz88uijT7_gHaHa?w=156&h=180&c=7&r=0&o=7&cb=thfvnext&dpr=1.1&pid=1.7&rm=3" alt="DC Collection" class="fandom-image">
+            <div class="fandom-overlay"></div>
+            <div class="fandom-logo"><div class="dc-logo">DC</div></div>
+          </div>
+          <!-- demon slayer -->
+          <div class="fandom-card demon-slayer-card">
+            <img src="https://thfvnext.bing.com/th/id/OIP.Lhxf8eHBgpKcgusxjQ_2NAHaJI?w=142&h=180&c=7&r=0&o=7&cb=thfvnext&dpr=1.1&pid=1.7&rm=3" alt="Demon Slayer Collection" class="fandom-image">
+            <div class="fandom-overlay"></div>
+            <div class="fandom-logo">
+              <div class="demon-slayer-logo">
+                <div class="demon-slayer-text">DEMON<br>SLAYER</div>
+                <div class="demon-slayer-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-arrow next">›</div>
+    </div>
+  </div>
+
+  <!-- -------------------- ABOUT -------------------- -->
+  <section class="about" id="about">
+    <img src="fusionfabriklogo.jpg" alt="About Fusion Fabrik">
+    <div class="about-text">
+      <h2>About Fusion Fabrik</h2>
+      <p>At Fusion Fabrik, fashion is not just clothing  it's a lifestyle. We create bold, modern collections with a focus on sustainability and quality.</p>
+      <p>Our mission is to blend innovation with timeless design, giving you pieces that are both stylish and meaningful.</p>
+    </div>
+  </section>
+
+  <!-- -------------------- FOOTER -------------------- -->
+ <footer id="contact">
+    <div class="footer-container">
+      <div class="footer">
+        <h3>About Us</h3>
+        <p>FusionFabrik is a modern clothing brand blending tradition with style. We bring you unique and premium fashion collections.</p>
+      </div>
+      <div class="footer">
+        <h3>Quick Links</h3>
+        <p><a href="#">Home</a></p>
+        <p><a href="#">Shop</a></p>
+        <p><a href="#">About</a></p>
+        <p><a href="#">Contact</a></p>
+      </div>
+      <div class="footer">
+        <h3>Customer Care</h3>
+        <p><a href="#">FAQs</a></p>
+        <p><a href="#">Shipping & Returns</a></p>
+        <p><a href="#">Privacy Policy</a></p>
+        <p><a href="#">Terms & Conditions</a></p>
+      </div>
+      <div class="footer">
+        <h3>Contact Us</h3>
+        <div class="contact-info">
+          <p>📍 123 Fashion Street, New Delhi, India</p>
+          <p>📧 support@fusionfabrik.com</p>
+          <p>📞 +91 98765 43210</p>
+        </div>
+        <div class="socials">
+          <a href="#">🌐</a>
+          <a href="#">📘</a>
+          <a href="#">📸</a>
+          <a href="#">🐦</a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 FusionFabrik. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

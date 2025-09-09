@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punisher: Logo - Fusion Fabrik</title>
+    <style>
+    /* Reset + Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #eee;
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #222;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-menu a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #444;
+      position: relative;
+      transition: 0.3s;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: #ff6f61;
+      transition: width 0.3s;
+    }
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* Search */
+    .search-container input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .search-container input:focus {
+      outline: none;
+      border-color: #ff6f61;
+      box-shadow: 0 0 5px rgba(255, 111, 97, 0.4);
+    }
+
+    /* Icons */
+    .icons span {
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .icons span:hover {
+      transform: scale(1.2);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      font-size: 14px;
+      margin: 20px 0;
+      color: #777;
+    }
+    .breadcrumb a {
+      text-decoration: none;
+      color: #555;
+      transition: color 0.3s;
+    }
+    .breadcrumb a:hover {
+      color: #ff6f61;
+    }
+
+    /* Product Detail */
+    .product-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      margin-bottom: 40px;
+    }
+
+    /* Product Images */
+    .product-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    .image-item {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .image-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .image-item:hover img {
+      transform: scale(1.05);
+    }
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #ff6f61;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+
+    /* Product Info */
+    .product-info h1 {
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+    .product-category {
+      color: #888;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .price {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff6f61;
+      margin-bottom: 8px;
+    }
+    .price-note {
+      color: #777;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    /* Variants */
+    .variant-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .variant-grid {
+      display: flex;
+      gap: 10px;
+    }
+    .variant-option {
+      width: 55px;
+      height: 55px;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      transition: border 0.3s;
+    }
+    .variant-option:hover {
+      border-color: #ff6f61;
+    }
+    .variant-option.active {
+      border-color: #333;
+    }
+
+    /* Sizes */
+    .size-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .size-grid {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+    .size-option {
+      padding: 12px 18px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .size-option:hover {
+      border-color: #ff6f61;
+      color: #ff6f61;
+    }
+    .size-option.active {
+      background: #333;
+      color: #fff;
+    }
+    .size-option.unavailable {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Quantity + Buttons */
+    .quantity-section {
+      margin: 20px 0;
+    }
+    .quantity-select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .add-to-cart {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #ff6f61, #ff9068);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .add-to-cart:hover {
+      transform: translateY(-2px);
+    }
+    .add-to-wishlist {
+      padding: 14px 20px;
+      border: 2px solid #333;
+      border-radius: 6px;
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .add-to-wishlist:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    /* Delivery */
+    .delivery-section {
+      margin-top: 25px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+    .pincode-input {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    .check-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .check-button:hover {
+      background: #0056b3;
+    }
+    .return-policy {
+      margin-top: 15px;
+      background: #f9f9f9;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Accordion */
+    .accordion-item {
+      margin-top: 15px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+      overflow: hidden;
+    }
+    .accordion-header {
+      background: #fafafa;
+      padding: 15px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+    .accordion-content {
+      padding: 15px 20px;
+      font-size: 14px;
+      color: #555;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content container">
+            <a href="#" class="logo">FusionFabrik</a>
+            <nav class="nav-menu">
+                <a href="#">MEN</a>
+                <a href="#">WOMEN</a>
+                <a href="#">SNEAKERS</a>
+            </nav>
+            <div class="search-container">
+                <input type="text" placeholder="What are you looking for?">
+            </div>
+            <div class="icons">
+                <span>👤</span>
+                <span>🔍</span>
+                <span>🛒</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumb">
+            <a href="#">Home</a> / <a href="#">Oversized T-Shirts</a> / <a href="#">Marvel™</a> / Punisher: Logo
+        </div>
+
+        <div class="product-detail">
+            <div class="product-images">
+                <div class="image-item">
+                    <img src="11.jpg" alt="Punisher Logo T-Shirt Front">
+                    <div class="badge">Oversized Fit</div>
+                </div>
+                <div class="image-item">
+                    <img src="12.jpg" alt="Punisher Logo T-Shirt Model">
+                </div>
+                <div class="image-item">
+                    <img src="13.jpg" alt="Punisher Logo T-Shirt Full Body">
+                </div>
+                <div class="image-item">
+                    <img src="14.jpg" alt="Punisher Logo T-Shirt Back">
+                </div>
+            </div>
+
+            <div class="product-info">
+                <h1>Punisher: Logo</h1>
+                <p class="product-category">Oversized T-Shirts</p>
+                
+                <div class="price">₹ 1199</div>
+                <p class="price-note">Price incl. of all taxes</p>
+
+                <div class="variant-section">
+                    <div class="variant-title">Shop by Variant/Look</div>
+                    <div class="variant-grid">
+                        <div class="variant-option active" style="background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80');"></div>
+                        <div class="variant-option" style="background-image: url('https://images.unsplash.com/photo-1583743814966-8936f37f04be?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80');"></div>
+                        <div class="variant-option" style="background-image: url('https://images.unsplash.com/photo-1571945153237-4929e783af4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80');"></div>
+                        <div class="variant-option" style="background-image: url('https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80');"></div>
+                    </div>
+                </div>
+
+                <div class="size-section">
+                    <div class="size-header">
+                        <span class="variant-title">Please select a size.</span>
+                        <a href="#" class="size-chart-link">SIZE CHART</a>
+                    </div>
+                    <div class="size-grid">
+                        <div class="size-option unavailable">XXS</div>
+                        <div class="size-option">XS</div>
+                        <div class="size-option">S</div>
+                        <div class="size-option active">M</div>
+                        <div class="size-option">L</div>
+                        <div class="size-option">XL</div>
+                        <div class="size-option">XXL</div>
+                        <div class="size-option">XXXL</div>
+                    </div>
+                    <p style="font-size: 14px; color: #666;">
+                        Size not available? <a href="#" class="notify-link">Notify Me</a>
+                    </p>
+                </div>
+
+                <div class="quantity-section">
+                    <span class="quantity-label">Quantity</span>
+                    <select class="quantity-select">
+                        <option value="1">01</option>
+                        <option value="2">02</option>
+                        <option value="3">03</option>
+                        <option value="4">04</option>
+                        <option value="5">05</option>
+                    </select>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-wishlist">Add to Wishlist</button>
+                </div>
+
+                <div class="delivery-section">
+                    <div class="delivery-title">Delivery Details</div>
+                    <div class="pincode-check">
+                        <input type="text" class="pincode-input" placeholder="151001" value="151001">
+                        <button class="check-button">CHECK</button>
+                    </div>
+                    <div class="return-policy">
+                        This product is eligible for return or exchange under our 30-day return policy.
+                    </div>
+
+                    <div class="accordion-section">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span>Product Details</span>
+                                <span>-</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Premium 100% cotton t-shirt with oversized fit. High-quality screen printed Punisher logo design.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

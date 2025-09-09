@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .auth-container {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+        color: #666;
+        font-size: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px 45px 15px 20px; /* space for eye icon */
+        border: 1.5px solid #ccc;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: #fdfdfd;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 10px rgba(74,144,226,0.2);
+    }
+
+    /* Password toggle button */
+    .toggle-password {
+        position: absolute;
+        right: 15px;
+        top: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: #666;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 15px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+        background: #357ab8;
+        box-shadow: 0 5px 15px rgba(53,122,184,0.3);
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        margin-right: 8px;
+        transform: scale(1.2);
+    }
+
+    .forgot-password {
+        text-align: right;
+        margin-top: 10px;
+    }
+
+    .forgot-password a {
+        color: #888;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+
+    .forgot-password a:hover {
+        color: #4a90e2;
+    }
+
+    .social-login {
+        margin: 25px 0;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 25px 0;
+        color: #888;
+        font-weight: 600;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #ccc;
+    }
+
+    .divider:not(:empty)::before {
+        margin-right: 10px;
+    }
+
+    .divider:not(:empty)::after {
+        margin-left: 10px;
+    }
+
+    .social-btn {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid #ccc;
+        border-radius: 12px;
+        background: #fff;
+        color: #555;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+    .social-btn img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .social-btn:hover {
+        border-color: #4a90e2;
+        color: #4a90e2;
+        box-shadow: 0 4px 12px rgba(74,144,226,0.2);
+    }
+
+    @media (max-width: 480px) {
+        .auth-container {
+            padding: 30px 25px;
+            margin: 20px;
+        }
+
+        .form-title {
+            font-size: 24px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="form-header">
+            <h2 class="form-title">Welcome Back</h2>
+            <p class="form-subtitle">Sign in to your account</p>
+        </div>
+
+        <form method="post" action="#">
+            <div class="form-group">
+                <label class="form-label" for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" name="email" class="form-input" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" name="password" class="form-input" placeholder="Enter your password" required>
+                <button type="button" class="toggle-password" onclick="togglePassword()">👁</button>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="rememberMe" name="remember">
+                <label for="rememberMe">Remember me</label>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#">Forgot your password?</a>
+            </div>
+
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <div class="social-login">
+            <div class="divider">or continue with</div>
+            <a href="www.gmail.com" class="social-btn">
+                <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google">
+                Continue with Google
+            </a>
+            <a href="#" class="social-btn">
+                <img src="https://www.svgrepo.com/show/217753/github.svg" alt="GitHub">
+                Continue with GitHub
+            </a>
+        </div>
+    </div>
+
+<script>
+function togglePassword() {
+    const passwordField = document.getElementById("loginPassword");
+    const toggleBtn = document.querySelector(".toggle-password");
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleBtn.textContent = "🙈";
+    } else {
+        passwordField.type = "password";
+        toggleBtn.textContent = "👁";
+    }
+}
+</script>
+</body>
+</html>

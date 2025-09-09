@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup Page</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .auth-container {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333333;
+        margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+        color: #666666;
+        font-size: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555555;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 1.5px solid #cccccc;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: #fdfdfd;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 10px rgba(74, 144, 226, 0.2);
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 15px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+        background: #357ab8;
+        box-shadow: 0 5px 15px rgba(53, 122, 184, 0.3);
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #555555;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        margin-right: 8px;
+        transform: scale(1.2);
+    }
+
+    .password-requirements {
+        font-size: 12px;
+        color: #888888;
+        margin-top: 5px;
+        line-height: 1.4;
+    }
+
+    .social-login {
+        margin: 25px 0;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 25px 0;
+        color: #888888;
+        font-weight: 600;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #cccccc;
+    }
+
+    .divider:not(:empty)::before {
+        margin-right: 10px;
+    }
+
+    .divider:not(:empty)::after {
+        margin-left: 10px;
+    }
+
+    .social-btn {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid #cccccc;
+        border-radius: 12px;
+        background: #ffffff;
+        color: #555555;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+    .social-btn img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .social-btn:hover {
+        border-color: #4a90e2;
+        color: #4a90e2;
+        box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+    }
+
+    .form-footer {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .form-link {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .form-link:hover {
+        color: #357ab8;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+        .auth-container {
+            padding: 30px 25px;
+            margin: 20px;
+        }
+
+        .form-title {
+            font-size: 24px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="auth-container">
+    <div class="form-header">
+        <h2 class="form-title">Create Account</h2>
+        <p class="form-subtitle">Join us today</p>
+    </div>
+
+    <form method="post" action="#">
+        <div class="form-group">
+            <label class="form-label" for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" class="form-input" placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-input" placeholder="Create a password">
+            <div class="password-requirements">
+                Password must be at least 8 characters with letters and numbers
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Confirm your password">
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="agreeTerms" name="terms">
+            <label for="agreeTerms">I agree to the <a href="termsofservice.html">Terms of Service</a> and <a href="privacy policy.html">Privacy Policy</a></label>
+        </div>
+
+        <button type="submit" class="btn-primary">Create Account</button>
+    </form>
+
+    <div class="social-login">
+        <div class="divider">or continue with</div>
+        <a href="#" class="social-btn">
+            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google">
+            Sign up with Google
+        </a>
+        <a href="#" class="social-btn">
+            <img src="https://www.svgrepo.com/show/217753/github.svg" alt="GitHub">
+            Sign up with GitHub
+        </a>
+    </div>
+
+    <div class="form-footer">
+        <p>Already have an account? <a href="signin.html" class="form-link">Sign in</a></p>
+    </div>
+</div>
+</body>
+</html>
